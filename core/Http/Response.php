@@ -1,0 +1,13 @@
+<?php
+namespace Core\Http;
+
+class Response {
+    public function send(string $content): void {
+        echo $content;
+    }
+
+    public function json(array $data): void {
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "name": "my-mvc-framework/project",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Core\\": "core/",
+            "App\\": "app/"
+        }
+    }
+}
