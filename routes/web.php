@@ -2,6 +2,7 @@
 use App\Controllers\PostController;
 use App\Middleware\AuthMiddleware;
 
+$router->register('get', '/', ['App\\Controllers\\AuthController', 'showLoginForm']);
 $router->register('get', '/login', ['App\\Controllers\\AuthController', 'showLoginForm']);
 $router->register('post', '/login', ['App\\Controllers\\AuthController', 'login']);
 

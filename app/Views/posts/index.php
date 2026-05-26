@@ -9,7 +9,7 @@
 <body>
     <header>
         <div class="header-container">
-            <div class="header-title">📝 Posts Manager</div>
+            <div class="header-title">Posts Manager</div>
             <nav class="header-nav">
                 <a href="/posts">All Posts</a>
                 <a href="/posts/create">Create Post</a>
