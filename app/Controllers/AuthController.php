@@ -17,7 +17,7 @@ class AuthController {
     public function login(): void {
         session_start();
         $_SESSION['user'] = ['name' => 'demo'];
-        header('Location: /posts');
+        header('Location: ' . APP_BASE_PATH . '/posts');
         exit;
     }
 }

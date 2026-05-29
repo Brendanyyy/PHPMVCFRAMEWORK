@@ -1,6 +1,15 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
 
+$scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
+$basePath = rtrim($scriptDir, '/');
+if ($basePath === '.' || $basePath === '/') {
+	$basePath = '';
+}
+if (!defined('APP_BASE_PATH')) {
+	define('APP_BASE_PATH', $basePath);
+}
+
 use Core\Http\Request;
 use Core\Http\Router;
 use Core\View\Engine;

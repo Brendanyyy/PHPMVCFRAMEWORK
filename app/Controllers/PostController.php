@@ -24,7 +24,7 @@ class PostController {
 
     public function store(\Core\Http\Request $request) {
         $this->postModel->create($request->all());
-        header('Location: /posts');
+        header('Location: ' . APP_BASE_PATH . '/posts');
     }
 
     public function edit(int $id) {
@@ -34,11 +34,11 @@ class PostController {
 
     public function update(int $id, \Core\Http\Request $request) {
         $this->postModel->update($id, $request->all());
-        header('Location: /posts');
+        header('Location: ' . APP_BASE_PATH . '/posts');
     }
 
     public function delete(int $id) {
         $this->postModel->delete($id);
-        header('Location: /posts');
+        header('Location: ' . APP_BASE_PATH . '/posts');
     }
 }
