@@ -19,26 +19,57 @@ class PostController {
     }
 
     public function create() {
-        $this->view->render('posts/create');
+        $this->view->render('posts/create', ['errors' => [], 'old' => []]);
     }
 
     public function store(\Core\Http\Request $request) {
-        $this->postModel->create($request->all());
+        $data = $request->all();
+        $errors = $this->postModel->validate($data);
+
+        if (!empty($errors)) {
+            $this->view->render('posts/create', [
+                'errors' => $errors,
+                'old' => $data,
+            ]);
+            return;
+        }
+
+        $this->postModel->create($data);
         header('Location: ' . APP_BASE_PATH . '/posts');
+        exit;
     }
 
     public function edit(int $id) {
         $post = $this->postModel->find($id);
-        $this->view->render('posts/edit', ['post' => $post]);
+        $this->view->render('posts/edit', ['post' => $post, 'errors' => [], 'old' => []]);
     }
 
     public function update(int $id, \Core\Http\Request $request) {
-        $this->postModel->update($id, $request->all());
+        $post = $this->postModel->find($id);
+        if ($post === null) {
+            throw new \Exception('Post not found');
+        }
+
+        $data = $request->all();
+        $errors = $this->postModel->validate($data);
+
+        if (!empty($errors)) {
+            $this->view->render('posts/edit', [
+                'post' => $post,
+                'errors' => $errors,
+                'old' => $data,
+            ]);
+            return;
+        }
+
+        $this->postModel->update($id, $data);
         header('Location: ' . APP_BASE_PATH . '/posts');
+        exit;
     }
 
     public function delete(int $id) {
         $this->postModel->delete($id);
         header('Location: ' . APP_BASE_PATH . '/posts');
+        exit;
     }
 }

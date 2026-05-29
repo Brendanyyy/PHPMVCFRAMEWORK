@@ -20,15 +20,28 @@
     <div class="container">
         <div class="card">
             <h1>Create New Post</h1>
+            <?php $errors = $errors ?? []; $old = $old ?? []; ?>
+            <?php if (!empty($errors)): ?>
+                <div class="form-errors">
+                    <strong>Please fix the following errors:</strong>
+                    <ul>
+                        <?php foreach ($errors as $fieldErrors): ?>
+                            <?php foreach ($fieldErrors as $message): ?>
+                                <li><?= htmlspecialchars($message) ?></li>
+                            <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
             <form action="<?= APP_BASE_PATH ?>/posts" method="POST">
                 <div class="form-group">
                     <label for="title">Post Title</label>
-                    <input type="text" id="title" name="title" placeholder="Enter post title" required>
+                    <input type="text" id="title" name="title" value="<?= htmlspecialchars($old['title'] ?? '') ?>" placeholder="Enter post title" required>
                 </div>
 
                 <div class="form-group">
                     <label for="content">Post Content</label>
-                    <textarea id="content" name="content" placeholder="Write your post content here..." required></textarea>
+                    <textarea id="content" name="content" placeholder="Write your post content here..." required><?= htmlspecialchars($old['content'] ?? '') ?></textarea>
                 </div>
 
                 <div class="button-group">

@@ -21,17 +21,30 @@
         <div class="card">
             <?php /** @var array|null $post */
             $post = $post ?? null; ?>
+            <?php $errors = $errors ?? []; $old = $old ?? []; ?>
             
             <h1>Edit Post</h1>
+            <?php if (!empty($errors)): ?>
+                <div class="form-errors">
+                    <strong>Please fix the following errors:</strong>
+                    <ul>
+                        <?php foreach ($errors as $fieldErrors): ?>
+                            <?php foreach ($fieldErrors as $message): ?>
+                                <li><?= htmlspecialchars($message) ?></li>
+                            <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
             <form action="<?= APP_BASE_PATH ?>/posts/<?= htmlspecialchars($post['id'] ?? '') ?>/update" method="POST">
                 <div class="form-group">
                     <label for="title">Post Title</label>
-                    <input type="text" id="title" name="title" value="<?= htmlspecialchars($post['title'] ?? '') ?>" placeholder="Enter post title" required>
+                    <input type="text" id="title" name="title" value="<?= htmlspecialchars($old['title'] ?? $post['title'] ?? '') ?>" placeholder="Enter post title" required>
                 </div>
 
                 <div class="form-group">
                     <label for="content">Post Content</label>
-                    <textarea id="content" name="content" placeholder="Write your post content here..." required><?= htmlspecialchars($post['content'] ?? '') ?></textarea>
+                    <textarea id="content" name="content" placeholder="Write your post content here..." required><?= htmlspecialchars($old['content'] ?? $post['content'] ?? '') ?></textarea>
                 </div>
 
                 <div class="button-group">
